@@ -16,4 +16,3 @@ assert.equal(execution.readback.jira_automation_status, "success");
 assert.equal(execution.readback.matching_jira_issues, route.jira.expected_issue_count);
 
 console.log("Zendesk to Jira route contract is valid.");
-

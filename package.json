@@ -6,4 +6,3 @@
     "validate": "node scripts/validate-route.mjs"
   }
 }
-

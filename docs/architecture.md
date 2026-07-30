@@ -28,4 +28,3 @@ A provider-normalised field does not establish that the create failed. Reconcili
 ## Activation
 
 Secrets stay in provider configuration. The trigger and Jira rule should be activated only after an authorised destination project, endpoint rotation, controlled ticket and duplicate query are ready.
-

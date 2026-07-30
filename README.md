@@ -82,4 +82,3 @@ docs/         failure and activation notes
 ```
 
 [Provider workflow notes](docs/architecture.md)
-
