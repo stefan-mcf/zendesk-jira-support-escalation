@@ -1,0 +1,21 @@
+{
+  "schema_version": "1.0.0",
+  "classification": "synthetic",
+  "request": {
+    "ticket_id": "12345",
+    "subject": "Repeated authentication failure after SSO change",
+    "priority": "high",
+    "status_requested": "new",
+    "ticket_url": "https://example.zendesk.com/agent/tickets/12345",
+    "route_tag": "engineering_escalation_approved"
+  },
+  "readback": {
+    "status_observed": "open",
+    "private_comments": 1,
+    "matching_zendesk_tickets": 1,
+    "zendesk_webhook_status": 200,
+    "jira_automation_status": "success",
+    "matching_jira_issues": 1
+  }
+}
+

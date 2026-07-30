@@ -1,0 +1,29 @@
+{
+  "schema_version": "1.0.0",
+  "active": false,
+  "zendesk": {
+    "event": "ticket_created",
+    "all_conditions": {
+      "ticket_type": "problem",
+      "required_tag": "engineering_escalation_approved",
+      "comment_visibility": "private"
+    }
+  },
+  "webhook": {
+    "authentication": "provider_managed_secret",
+    "fields": [
+      "ticket_id",
+      "subject",
+      "priority",
+      "status",
+      "ticket_url",
+      "route_tag"
+    ]
+  },
+  "jira": {
+    "issue_type": "Task",
+    "dedupe_key": "zendesk_ticket_id",
+    "expected_issue_count": 1
+  }
+}
+
