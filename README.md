@@ -4,7 +4,7 @@ A guarded support-to-engineering route that turns an approved Zendesk problem ti
 
 | | |
 | --- | --- |
-| Status | Implemented and provider-validated |
+| Status | Internal implementation validated with controlled provider records |
 | Role | Trigger design, webhook integration, field mapping and failure reconciliation |
 | Stack | Zendesk, Jira Automation, JSON webhooks |
 
