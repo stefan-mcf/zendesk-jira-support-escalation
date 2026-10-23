@@ -2,13 +2,17 @@
 
 A guarded support-to-engineering route that turns an approved Zendesk problem ticket into one mapped Jira task.
 
-| | |
-| --- | --- |
-| Status | Internal implementation validated with controlled provider records |
-| Role | Trigger design, webhook integration, field mapping and failure reconciliation |
-| Stack | Zendesk, Jira Automation, JSON webhooks |
+**Status:** Controlled provider route verified; the automation was disabled after the route test.
 
-## Escalation path
+**My contribution:** Trigger design, webhook integration, field mapping and failure reconciliation.
+
+![Zendesk to Jira route](assets/overview.png)
+
+*Retained project view. The [evidence index](docs/evidence.md) contains the full published sequence and its historical context.*
+
+## How it works
+
+### Escalation path
 
 ```text
 private Zendesk ticket
@@ -32,9 +36,7 @@ private Zendesk ticket
 
 The route is intentionally narrow. It accepts synthetic or internally approved tickets, uses a private Zendesk comment, and maps six fields into Jira. It does not send a customer reply.
 
-![Zendesk to Jira route](assets/overview.png)
-
-## Trigger and payload
+### Trigger and payload
 
 The Zendesk trigger requires all configured conditions, including the exact escalation tag. The webhook sends only:
 
@@ -47,31 +49,13 @@ The Zendesk trigger requires all configured conditions, including the exact esca
 
 Jira Automation validates the shared endpoint configuration and creates a task in the designated engineering project. The issue description retains the source ticket URL and mapped support context.
 
-![Guarded trigger route](assets/guarded-route.png)
-
-![Jira field mapping](assets/jira-field-mapping.png)
-
-## Provider reconciliation
+### Provider reconciliation
 
 The initial ticket request used Zendesk's `new` state. Zendesk normalised the record to `open`, so the CLI write receipt reported that its exact-field readback did not match.
 
 The route was not retried blindly. A separate read confirmed that the ticket existed once with the expected private comment, tags and normalised status. Zendesk's webhook returned HTTP 200, Jira Automation completed successfully and the destination search found one matching task.
 
-![Webhook execution and destination result](assets/webhook-execution.png)
-
-## Activation boundary
-
-The automation was disabled after the controlled route test. Provider URLs, webhook secrets, tenant identifiers and live ticket IDs are excluded from this repository.
-
-The Zendesk AI Support Copilot uses the same integration family with a stricter application-level approval and idempotency layer. This repository isolates the provider-native trigger, mapping and reconciliation decisions.
-
-## Validate the route contract
-
-```bash
-npm run validate
-```
-
-## Repository contents
+## Implementation
 
 ```text
 assets/       selected route and provider screens
@@ -82,3 +66,22 @@ docs/         failure and activation notes
 ```
 
 [Provider workflow notes](docs/architecture.md)
+
+## Validation
+
+```bash
+npm run validate
+```
+
+The validator checks the trigger and six-field mapping contract. It does not create a new Zendesk ticket or Jira task.
+
+## Scope and current state
+
+The automation was disabled after the controlled route test. Provider URLs, webhook secrets, tenant identifiers and live ticket IDs are excluded from this repository.
+
+The Zendesk AI Support Copilot uses the same integration family with a stricter application-level approval and idempotency layer. This repository isolates the provider-native trigger, mapping and reconciliation decisions.
+
+## Documentation
+
+- [Provider workflow notes](docs/architecture.md)
+- [Evidence index](docs/evidence.md)
