@@ -6,9 +6,11 @@ A guarded support-to-engineering route that turns an approved Zendesk problem ti
 
 **My contribution:** Trigger design, webhook integration, field mapping and failure reconciliation.
 
-![Zendesk to Jira route](assets/overview.png)
+## Zendesk returned `open` for a ticket requested as `new`
 
-*Retained project view. The [evidence index](docs/evidence.md) contains the full published sequence and its historical context.*
+The initial exact-field readback flagged a status mismatch in the [controlled synthetic execution](examples/execution.json). A separate read confirmed one Zendesk ticket with one private comment, a webhook response of HTTP 200 and one matching Jira issue. Reconciliation established the handoff outcome without a second submission.
+
+The automation was disabled after the test. `npm run validate` checks the local trigger and mapping contract. See the [retained route view](assets/overview.png) and [evidence index](docs/evidence.md) for the provider record.
 
 ## How it works
 
@@ -48,12 +50,6 @@ The Zendesk trigger requires all configured conditions, including the exact esca
 - escalation tag.
 
 Jira Automation validates the shared endpoint configuration and creates a task in the designated engineering project. The issue description retains the source ticket URL and mapped support context.
-
-### Provider reconciliation
-
-The initial ticket request used Zendesk's `new` state. Zendesk normalised the record to `open`, so the CLI write receipt reported that its exact-field readback did not match.
-
-The route was not retried blindly. A separate read confirmed that the ticket existed once with the expected private comment, tags and normalised status. Zendesk's webhook returned HTTP 200, Jira Automation completed successfully and the destination search found one matching task.
 
 ## Implementation
 
